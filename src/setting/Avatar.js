@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image} from 'react-native';
-import pick from '../../api/pick';
+import {pick} from '../../api/pick';
 
 type Props = {
   children: any,
