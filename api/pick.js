@@ -30,4 +30,4 @@ let pick = (cb) =>{
   });
 }
 
-module.exports = pick;
+export {pick};
