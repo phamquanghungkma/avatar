@@ -8,45 +8,33 @@ type Props = {
 };
 
 export default class Avatar extends React.PureComponent<Props> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      avatarSource: null,
-    };
-  }
-
-  show() {
-    pick(source => this.setState({avatarSource: source}));
-  }
-
+  state = {
+    source: null,
+  };
+  onPress = () => {
+    pick(source => {
+      console.log('uri', source.uri);
+      this.setState({source: source}, () => {
+        console.log('state', this.state.source);
+      });
+    });
+  };
   render() {
     const {onPress = () => {}, children} = this.props;
-    let img =
-      this.state.avatarSource == null ? (
-        <Image
-          source={require('../images/addt.png')}
-          style={{height: 100, width: 100}}
-        />
-      ) : (
-        <Image
-          source={this.state.avatarSource}
-          style={{height: 80, width: 80, borderRadius: 40}}
-        />
-      );
     return (
-      <View
+      <TouchableOpacity
+        onPress={this.onPress}
         style={{
-          width: 120,
-          height: 120,
-          borderRadius: 60,
+          width: 100,
+          height: 100,
+          borderRadius: 50,
           borderWidth: 2,
           borderColor: '#b71c1c',
-          backgroundColor: 'green',
+          backgroundColor: 'white',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
         <TouchableOpacity
-          onPress={this.show.bind(this)}
           style={{
             position: 'absolute',
             backgroundColor: 'red',
@@ -55,12 +43,12 @@ export default class Avatar extends React.PureComponent<Props> {
             borderRadius: 18,
             right: 0,
             bottom: 0,
-            borderColor: 'blue',
+            borderColor: 'white',
             borderWidth: 3,
-          }}>
-          </TouchableOpacity>
-        {children}
-      </View>
+          }}
+        />
+        <Image source={this.state.source} style={{width: 100, height: 100}} />
+      </TouchableOpacity>
     );
   }
 }
